@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../auth/AuthService";
+import "../styles/Login.css";
 
 export default function Login() {
   const nav = useNavigate();
@@ -20,27 +21,45 @@ export default function Login() {
   };
 
   return (
-    <div style={{ maxWidth: 420, margin: "60px auto" }}>
-      <h2>Admin Login</h2>
-      <form onSubmit={onSubmit}>
-        <input
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          style={{ width: "100%", padding: 10, marginTop: 10 }}
-        />
-        <input
-          placeholder="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{ width: "100%", padding: 10, marginTop: 10 }}
-        />
-        <button style={{ width: "100%", padding: 10, marginTop: 12 }}>
-          Entrar
-        </button>
-        {err && <p style={{ color: "tomato" }}>{err}</p>}
-      </form>
+    <div className="login-page">
+      <div className="login-card">
+        <div className="login-brand">
+          <img src="/Spotify_logo.png" alt="Spotify" />
+          <div>
+            <h2 className="login-title">Admin Login</h2>
+            <div className="login-subtitle">Accede al panel de administración</div>
+          </div>
+        </div>
+
+        <form className="login-form" onSubmit={onSubmit}>
+          <div>
+            <label className="login-label">Username</label>
+            <input
+              className="login-input"
+              placeholder="Tu usuario"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="login-label">Password</label>
+            <input
+              className="login-input"
+              placeholder="Tu contraseña"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <button className="login-btn" type="submit">
+            Entrar
+          </button>
+
+          {err && <div className="login-error">{err}</div>}
+        </form>
+      </div>
     </div>
   );
 }
