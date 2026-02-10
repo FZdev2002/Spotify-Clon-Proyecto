@@ -1,0 +1,187 @@
+.albums-page{
+  min-height: calc(100vh - 70px);
+  background:
+    radial-gradient(800px 500px at 20% 0%, rgba(34, 197, 94, 0.10), transparent 60%),
+    #0b0b0b;
+  padding: 26px 14px;
+}
+
+.albums-container{
+  max-width: 980px;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.albums-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.albums-title{
+  margin: 0;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.albums-badge{
+  color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ✅ SCOPED */
+.albums-page .card{
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 14px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+}
+
+.albums-page .card-title{
+  color: rgba(255,255,255,0.92);
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+/* ✅ FORM GRID: 2 columns */
+.albums-page .form-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: end;
+}
+
+.albums-page .field{
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.albums-page .label{
+  display: block;
+  color: rgba(255,255,255,0.70);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.albums-page .input,
+.albums-page .select,
+.albums-page .file{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  outline: none;
+}
+
+.albums-page .file{
+  padding: 8px;
+}
+
+/* ✅ ACTIONS RIGHT */
+.albums-page .actions-row{
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end; /* ✅ derecha */
+  margin-top: 2px;
+}
+
+.albums-page .btn{
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  cursor: pointer;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.albums-page .btn-primary{
+  background: #22c55e;
+  color: #0b0b0b;
+}
+
+.albums-page .btn-secondary{
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+}
+
+.albums-page .btn-danger{
+  background: #e11d48;
+  color: #fff;
+}
+
+.albums-page .btn:hover{ filter: brightness(1.05); }
+
+.albums-page .list{
+  display: grid;
+  gap: 10px;
+}
+
+.albums-page .item{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.25);
+}
+
+.albums-page .thumb{
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.albums-page .thumb-fallback{
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  font-size: 18px;
+  flex: 0 0 auto;
+}
+
+.albums-page .item-name{ font-weight: 900; }
+
+.albums-page .item-meta{
+  color: rgba(255,255,255,0.55);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.albums-page .item-actions{
+  display: flex;
+  gap: 8px;
+}
+
+/* ✅ RESPONSIVE */
+@media (max-width: 720px){
+  .albums-page .form-grid{ grid-template-columns: 1fr; }
+
+  .albums-page .actions-row{
+    justify-content: stretch;
+  }
+
+  .albums-page .actions-row .btn{
+    width: 100%;
+  }
+}

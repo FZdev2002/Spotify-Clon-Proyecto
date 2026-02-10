@@ -78,7 +78,6 @@ export default function GenresCrud() {
             <span className="genres-badge">{items.length} items</span>
           </div>
 
-          {/* FORM */}
           <div className="card">
             <div className="card-title">
               {editId ? "Editar género" : "Crear género"}
@@ -99,7 +98,6 @@ export default function GenresCrud() {
                 />
               </div>
 
-              {/* ✅ IMPORTANTE: también es field para que no quede hueco */}
               <div className="field">
                 <label className="label" htmlFor="genre-image">
                   Imagen
@@ -127,7 +125,6 @@ export default function GenresCrud() {
             </div>
           </div>
 
-          {/* LIST */}
           <div className="card">
             <div className="card-title">Listado</div>
 
