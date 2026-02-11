@@ -32,7 +32,10 @@ export default function AlbumsPage() {
               <div key={al.id} className="card" onClick={() => nav(`/albums/${al.id}/songs`)}>
                 <img className="thumb" src={img || "/placeholder.png"} alt={al.title} />
                 <div className="card-name">{al.title}</div>
-                <div className="muted">ID: {al.id}</div>
+                <div className="muted">
+                  {al.artist_name ?? `Artist #${al.artist}`}
+                </div>
+
               </div>
             );
           })}

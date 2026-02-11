@@ -1,69 +1,144 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { searchAll } from "../services/musicService";
-import type { SearchResponse } from "../services/types";
+import type { SearchResponse, Song, Artist, Album } from "../services/types";
+import { resolveMediaUrl } from "../utils/media";
 import "../styles/UserPages.css";
 
 export default function SearchPage() {
-  const nav = useNavigate();
-  const [params] = useSearchParams();
-  const q = (params.get("q") ?? "").trim();
 
-  const [data, setData] = useState<SearchResponse>({ artists: [], albums: [], songs: [] });
+  const [params] = useSearchParams();
+  const nav = useNavigate();
+
+  const query = (params.get("q") || "").trim();
+
+  const [data, setData] = useState<SearchResponse>({
+    artists: [],
+    albums: [],
+    songs: [],
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [activeSong, setActiveSong] = useState<Song | null>(null);
 
   useEffect(() => {
-    if (!q) return;
-    searchAll(q).then(setData);
-  }, [q]);
+
+    if (!query) return;
+
+    setLoading(true);
+
+    searchAll(query)
+      .then((res) => setData(res))
+      .finally(() => setLoading(false));
+
+  }, [query]);
 
   return (
     <div className="page">
       <div className="container">
+
         <div className="top">
           <h2 className="title">Resultados</h2>
-          <span className="badge">"{q}"</span>
+          <span className="badge">{query}</span>
         </div>
 
-        <div style={{ display: "grid", gap: 14 }}>
-          <div>
+        {loading && <div className="muted">Buscando...</div>}
+
+        {data.artists.length > 0 && (
+          <>
             <div className="card-name">Artistas</div>
-            <div style={{ display: "grid", gap: 10, marginTop: 8 }}>
-              {data.artists.map((a) => (
-                <div key={a.id} className="card" onClick={() => nav(`/artists/${a.id}/albums`)}>
+
+            <div className="grid">
+              {data.artists.map((a: Artist) => (
+                <div
+                  key={a.id}
+                  className="card"
+                  onClick={() => nav(`/artists/${a.id}/albums`)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <img
+                    className="thumb"
+                    src={resolveMediaUrl(a.image) || "/placeholder.png"}
+                  />
                   <div className="card-name">{a.name}</div>
-                  <div className="muted">ID: {a.id}</div>
                 </div>
               ))}
-              {data.artists.length === 0 && <div className="muted">Sin resultados</div>}
             </div>
-          </div>
+          </>
+        )}
 
-          <div>
-            <div className="card-name">Álbums</div>
-            <div style={{ display: "grid", gap: 10, marginTop: 8 }}>
-              {data.albums.map((al) => (
-                <div key={al.id} className="card" onClick={() => nav(`/albums/${al.id}/songs`)}>
+        {data.albums.length > 0 && (
+          <>
+            <div className="card-name" style={{ marginTop: 20 }}>
+              Albums
+            </div>
+
+            <div className="grid">
+              {data.albums.map((al: Album) => (
+                <div
+                  key={al.id}
+                  className="card"
+                  onClick={() => nav(`/albums/${al.id}/songs`)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <img
+                    className="thumb"
+                    src={resolveMediaUrl(al.image) || "/placeholder.png"}
+                  />
                   <div className="card-name">{al.title}</div>
-                  <div className="muted">ID: {al.id}</div>
                 </div>
               ))}
-              {data.albums.length === 0 && <div className="muted">Sin resultados</div>}
             </div>
-          </div>
+          </>
+        )}
 
-          <div>
-            <div className="card-name">Canciones</div>
-            <div style={{ display: "grid", gap: 10, marginTop: 8 }}>
-              {data.songs.map((s) => (
-                <div key={s.id} className="card" style={{ cursor: "default" }}>
-                  <div className="card-name">{s.title}</div>
-                  <div className="muted">ID: {s.id}</div>
-                </div>
-              ))}
-              {data.songs.length === 0 && <div className="muted">Sin resultados</div>}
+        {data.songs.length > 0 && (
+          <>
+            <div className="card-name" style={{ marginTop: 20 }}>
+              Canciones
             </div>
-          </div>
-        </div>
+
+            <div style={{ display: "grid", gap: 10 }}>
+
+              {data.songs.map((s: Song) => {
+
+                const isActive = activeSong?.id === s.id;
+
+                return (
+                  <div
+                    key={s.id}
+                    className="card"
+                    onClick={() => setActiveSong(s)}
+                    style={{
+                      cursor: "pointer",
+                      border: isActive
+                        ? "1px solid rgba(255,255,255,0.3)"
+                        : undefined
+                    }}
+                  >
+                    <div className="card-name">{s.title}</div>
+                    <div className="muted">
+                      {data.albums.find(al => al.id === s.album)?.title ?? `Album #${s.album}`}
+                    </div>
+
+                    {isActive && (
+                      <audio
+                        controls
+                        autoPlay
+                        style={{ width: "100%", marginTop: 10 }}
+                      >
+                        <source src={resolveMediaUrl(s.audio)} />
+                      </audio>
+                    )}
+
+                  </div>
+                );
+              })}
+
+            </div>
+          </>
+        )}
+
       </div>
     </div>
   );

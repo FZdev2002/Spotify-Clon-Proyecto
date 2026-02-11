@@ -25,3 +25,8 @@ export async function searchAll(query: string): Promise<SearchResponse> {
   const { data } = await api.get("search/", { params: { query } });
   return data;
 }
+
+export async function getAlbum(albumId: number): Promise<Album> {
+  const { data } = await api.get(`albums/${albumId}/`);
+  return data;
+}

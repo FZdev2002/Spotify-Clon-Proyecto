@@ -17,7 +17,6 @@ export default function App() {
         <Route path="/artists/:artistId/albums" element={<AlbumsPage />} />
         <Route path="/albums/:albumId/songs" element={<SongsPage />} />
         <Route path="/search" element={<SearchPage />} />
-
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
