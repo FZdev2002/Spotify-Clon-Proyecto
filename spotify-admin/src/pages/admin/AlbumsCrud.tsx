@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../../api/axios";
 import AdminHeader from "../../components/AdminHeader";
-import "../../styles/AlbumsCrud.css";
+import "../../styles/AdminPages.css";
 
 import {
   createAlbum,
@@ -31,10 +31,7 @@ export default function AlbumsCrud() {
   };
 
   const load = async () => {
-    const [albumsData, artistsData] = await Promise.all([
-      getAlbums(),
-      getArtists(),
-    ]);
+    const [albumsData, artistsData] = await Promise.all([getAlbums(), getArtists()]);
     setItems(albumsData);
     setArtists(artistsData);
   };
@@ -90,41 +87,42 @@ export default function AlbumsCrud() {
     <>
       <AdminHeader />
 
-      <div className="albums-page">
-        <div className="albums-container">
-          <div className="albums-top">
-            <h2 className="albums-title">Albums</h2>
-            <span className="albums-badge">{items.length} items</span>
+      <div className="admin-page">
+        <div className="admin-container">
+          <div className="admin-top">
+            <h2 className="admin-title">Albums</h2>
+            <span className="admin-badge">{items.length} items</span>
           </div>
 
-          <div className="card">
-            <div className="card-title">
+          {/* FORM */}
+          <div className="admin-card">
+            <div className="admin-card-title">
               {editId ? "Editar álbum" : "Crear álbum"}
             </div>
 
-            <div className="form-grid">
-              <div className="field">
-                <label className="label" htmlFor="album-title">
+            <div className="admin-form-grid">
+              <div className="admin-field">
+                <label className="admin-label" htmlFor="album-title">
                   Título
                 </label>
                 <input
                   id="album-title"
                   name="albumTitle"
-                  className="input"
+                  className="admin-input"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Ej: Greatest Hits..."
                 />
               </div>
 
-              <div className="field">
-                <label className="label" htmlFor="album-artist">
+              <div className="admin-field">
+                <label className="admin-label" htmlFor="album-artist">
                   Artista
                 </label>
                 <select
                   id="album-artist"
                   name="albumArtist"
-                  className="select"
+                  className="admin-select"
                   value={artistId}
                   onChange={(e) =>
                     setArtistId(e.target.value ? Number(e.target.value) : "")
@@ -139,26 +137,29 @@ export default function AlbumsCrud() {
                 </select>
               </div>
 
-              <div className="field">
-                <label className="label" htmlFor="album-image">
+              <div className="admin-field">
+                <label className="admin-label" htmlFor="album-image">
                   Imagen
                 </label>
                 <input
                   id="album-image"
                   name="albumImage"
-                  className="file"
+                  className="admin-file"
                   type="file"
                   onChange={(e) => setFile(e.target.files?.[0] ?? null)}
                 />
               </div>
 
-              <div className="actions-row">
-                <button className="btn btn-primary" onClick={submit}>
+              <div className="admin-actions">
+                <button className="admin-btn admin-btn-primary" onClick={submit}>
                   {editId ? "Actualizar" : "Crear"}
                 </button>
 
                 {editId && (
-                  <button className="btn btn-secondary" onClick={cancelEdit}>
+                  <button
+                    className="admin-btn admin-btn-secondary"
+                    onClick={cancelEdit}
+                  >
                     Cancelar
                   </button>
                 )}
@@ -166,33 +167,40 @@ export default function AlbumsCrud() {
             </div>
           </div>
 
-          <div className="card">
-            <div className="card-title">Listado</div>
+          {/* LIST */}
+          <div className="admin-card">
+            <div className="admin-card-title">Listado</div>
 
-            <div className="list">
+            <div className="admin-list">
               {items.map((a) => {
                 const imgUrl = a.image ? resolveMediaUrl(a.image) : null;
 
                 return (
-                  <div key={a.id} className="item">
+                  <div key={a.id} className="admin-item">
                     {imgUrl ? (
-                      <img className="thumb" src={imgUrl} alt={a.title} />
+                      <img className="admin-thumb" src={imgUrl} alt={a.title} />
                     ) : (
-                      <div className="thumb-fallback">💿</div>
+                      <div className="admin-thumb-fallback">💿</div>
                     )}
 
-                    <div style={{ flex: 1 }}>
-                      <div className="item-name">{a.title}</div>
-                      <div className="item-meta">
+                    <div className="admin-item-info">
+                      <div className="admin-item-name">{a.title}</div>
+                      <div className="admin-item-meta">
                         Artista: {getArtistName(a.artist)} · ID: {a.id}
                       </div>
                     </div>
 
-                    <div className="item-actions">
-                      <button className="btn btn-secondary" onClick={() => onEdit(a)}>
+                    <div className="admin-item-actions">
+                      <button
+                        className="admin-btn admin-btn-secondary"
+                        onClick={() => onEdit(a)}
+                      >
                         Editar
                       </button>
-                      <button className="btn btn-danger" onClick={() => onDelete(a.id)}>
+                      <button
+                        className="admin-btn admin-btn-danger"
+                        onClick={() => onDelete(a.id)}
+                      >
                         Eliminar
                       </button>
                     </div>

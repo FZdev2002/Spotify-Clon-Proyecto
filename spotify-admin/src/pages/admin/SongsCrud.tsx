@@ -1,16 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { API_BASE_URL } from "../../api/axios";
 import AdminHeader from "../../components/AdminHeader";
-import "../../styles/SongsCrud.css";
-
+import "../../styles/AdminPages.css";
 import { getAlbums, type Album } from "../../services/albumService";
-import {
-  createSong,
-  deleteSong,
-  getSongs,
-  updateSong,
-  type Song,
-} from "../../services/songService";
+import {createSong, deleteSong, getSongs, updateSong, type Song } from "../../services/songService";
 
 export default function SongsCrud() {
   const [items, setItems] = useState<Song[]>([]);
@@ -86,41 +79,41 @@ export default function SongsCrud() {
     <>
       <AdminHeader />
 
-      <div className="songs-page">
-        <div className="songs-container">
-          <div className="songs-top">
-            <h2 className="songs-title">Música</h2>
-            <span className="songs-badge">{items.length} items</span>
+      <div className="admin-page">
+        <div className="admin-container">
+          <div className="admin-top">
+            <h2 className="admin-title">Música</h2>
+            <span className="admin-badge">{items.length} items</span>
           </div>
 
-          <div className="card">
-            <div className="card-title">
+          <div className="admin-card">
+            <div className="admin-card-title">
               {editId ? "Editar canción" : "Crear canción"}
             </div>
 
-            <div className="form-grid">
-              <div className="field">
-                <label className="label" htmlFor="song-title">
+            <div className="admin-form-grid">
+              <div className="admin-field">
+                <label className="admin-label" htmlFor="song-title">
                   Título
                 </label>
                 <input
                   id="song-title"
                   name="songTitle"
-                  className="input"
+                  className="admin-input"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Ej: Blinding Lights..."
                 />
               </div>
 
-              <div className="field">
-                <label className="label" htmlFor="song-album">
+              <div className="admin-field">
+                <label className="admin-label" htmlFor="song-album">
                   Álbum
                 </label>
                 <select
                   id="song-album"
                   name="songAlbum"
-                  className="select"
+                  className="admin-select"
                   value={albumId}
                   onChange={(e) =>
                     setAlbumId(e.target.value ? Number(e.target.value) : "")
@@ -135,27 +128,30 @@ export default function SongsCrud() {
                 </select>
               </div>
 
-              <div className="field">
-                <label className="label" htmlFor="song-audio">
+              <div className="admin-field">
+                <label className="admin-label" htmlFor="song-audio">
                   Audio (mp3)
                 </label>
                 <input
                   id="song-audio"
                   name="songAudio"
-                  className="file"
+                  className="admin-file"
                   type="file"
                   accept="audio/*"
                   onChange={(e) => setFile(e.target.files?.[0] ?? null)}
                 />
               </div>
 
-              <div className="actions-row">
-                <button className="btn btn-primary" onClick={submit}>
+              <div className="admin-actions">
+                <button className="admin-btn admin-btn-primary" onClick={submit}>
                   {editId ? "Actualizar" : "Crear"}
                 </button>
 
                 {editId && (
-                  <button className="btn btn-secondary" onClick={resetForm}>
+                  <button
+                    className="admin-btn admin-btn-secondary"
+                    onClick={resetForm}
+                  >
                     Cancelar
                   </button>
                 )}
@@ -163,35 +159,45 @@ export default function SongsCrud() {
             </div>
           </div>
 
-          <div className="card">
-            <div className="card-title">Listado</div>
+          <div className="admin-card">
+            <div className="admin-card-title">Listado</div>
 
-            <div className="list">
+            <div className="admin-list">
               {items.map((s) => {
                 const audioUrl = s.audio ? resolveMediaUrl(s.audio) : "";
 
                 return (
-                  <div key={s.id} className="item">
-                    <div className="thumb-fallback">🎵</div>
+                  <div key={s.id} className="admin-item">
+                    <div className="admin-thumb-fallback">🎵</div>
 
-                    <div className="item-info">
-                      <div className="item-name">{s.title}</div>
-                      <div className="item-meta">
+                    <div className="admin-item-info">
+                      <div className="admin-item-name">{s.title}</div>
+                      <div className="admin-item-meta">
                         ID: {s.id} · Álbum: {albumNameById.get(s.album) ?? s.album}
                       </div>
 
                       {audioUrl && (
-                        <audio controls preload="none" style={{ width: "100%", marginTop: 8 }}>
+                        <audio
+                          className="admin-audio"
+                          controls
+                          preload="none"
+                        >
                           <source src={audioUrl} />
                         </audio>
                       )}
                     </div>
 
-                    <div className="actions">
-                      <button className="btn btn-secondary" onClick={() => onEdit(s)}>
+                    <div className="admin-item-actions">
+                      <button
+                        className="admin-btn admin-btn-secondary"
+                        onClick={() => onEdit(s)}
+                      >
                         Editar
                       </button>
-                      <button className="btn btn-danger" onClick={() => onDelete(s.id)}>
+                      <button
+                        className="admin-btn admin-btn-danger"
+                        onClick={() => onDelete(s.id)}
+                      >
                         Eliminar
                       </button>
                     </div>

@@ -3,6 +3,7 @@ import { logout } from "../auth/AuthService";
 import "../styles/AdminHeader.css";
 
 export default function AdminHeader() {
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -20,53 +21,49 @@ export default function AdminHeader() {
   };
 
   return (
+
     <header className="admin-header">
 
-      <div className="admin-header__left">
+      <div className="admin-header-left">
 
         <img
-          className="admin-header__logo"
+          className="admin-header-logo"
           src="/Spotify_logo.png"
           alt="Spotify"
         />
 
-        <div className="admin-header__titles">
-          <div className="admin-header__title">Admin</div>
-          <div className="admin-header__subtitle">
+        <div className="admin-header-titles">
+          <div className="admin-header-title">Admin</div>
+          <div className="admin-header-subtitle">
             Panel de gestión
           </div>
         </div>
 
-
         <nav className="admin-nav">
 
           <button
-            className={`admin-nav__link ${
-              isActive("/admin/genres") ? "active" : ""
-            }`}
+            className={`admin-nav-link ${isActive("/admin/genres") ? "active" : ""}`}
             onClick={() => go("/admin/genres")}
           >
             Géneros
           </button>
 
           <button
-            className={`admin-nav__link ${
-              isActive("/admin/artists") ? "active" : ""
-            }`}
+            className={`admin-nav-link ${isActive("/admin/artists") ? "active" : ""}`}
             onClick={() => go("/admin/artists")}
           >
             Artistas
           </button>
 
           <button
-            className={`admin-nav__link ${isActive("/admin/albums") ? "active" : ""}`}
+            className={`admin-nav-link ${isActive("/admin/albums") ? "active" : ""}`}
             onClick={() => go("/admin/albums")}
           >
             Albums
           </button>
 
           <button
-            className={`admin-nav__link ${isActive("/admin/songs") ? "active" : ""}`}
+            className={`admin-nav-link ${isActive("/admin/songs") ? "active" : ""}`}
             onClick={() => go("/admin/songs")}
           >
             Canciones
@@ -77,7 +74,7 @@ export default function AdminHeader() {
       </div>
 
       <button
-        className="admin-header__logout"
+        className="admin-header-logout"
         onClick={handleLogout}
       >
         Log out

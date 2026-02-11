@@ -1,16 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { API_BASE_URL } from "../../api/axios";
 import AdminHeader from "../../components/AdminHeader";
-import "../../styles/ArtistsCrud.css";
-
+import "../../styles/AdminPages.css";
 import { getGenres, type Genre } from "../../services/genreService";
-import {
-  createArtist,
-  deleteArtist,
-  getArtists,
-  updateArtist,
-  type Artist,
-} from "../../services/artistService";
+import {createArtist, deleteArtist, getArtists, updateArtist, type Artist} from "../../services/artistService";
 
 export default function ArtistsCrud() {
   const [artists, setArtists] = useState<Artist[]>([]);
@@ -86,28 +79,27 @@ export default function ArtistsCrud() {
     <>
       <AdminHeader />
 
-      <div className="artists-page">
-        <div className="artists-container">
-          <div className="artists-top">
-            <h2 className="artists-title">Artistas</h2>
-            <span className="artists-badge">{artists.length} items</span>
+      <div className="admin-page">
+        <div className="admin-container">
+          <div className="admin-top">
+            <h2 className="admin-title">Artistas</h2>
+            <span className="admin-badge">{artists.length} items</span>
           </div>
 
-          {/* FORM */}
-          <div className="card">
-            <div className="card-title">
+          <div className="admin-card">
+            <div className="admin-card-title">
               {editId ? "Editar artista" : "Crear artista"}
             </div>
 
-            <div className="form-grid">
-              <div className="field">
-                <label className="label" htmlFor="artist-name">
+            <div className="admin-form-grid">
+              <div className="admin-field">
+                <label className="admin-label" htmlFor="artist-name">
                   Nombre
                 </label>
                 <input
                   id="artist-name"
                   name="artistName"
-                  className="input"
+                  className="admin-input"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Ej: Bad Bunny, Queen..."
@@ -115,14 +107,14 @@ export default function ArtistsCrud() {
                 />
               </div>
 
-              <div className="field">
-                <label className="label" htmlFor="artist-genre">
+              <div className="admin-field">
+                <label className="admin-label" htmlFor="artist-genre">
                   Género
                 </label>
                 <select
                   id="artist-genre"
                   name="artistGenre"
-                  className="select"
+                  className="admin-select"
                   value={genreId}
                   onChange={(e) =>
                     setGenreId(e.target.value ? Number(e.target.value) : "")
@@ -137,26 +129,29 @@ export default function ArtistsCrud() {
                 </select>
               </div>
 
-              <div className="field">
-                <label className="label" htmlFor="artist-image">
+              <div className="admin-field">
+                <label className="admin-label" htmlFor="artist-image">
                   Imagen
                 </label>
                 <input
                   id="artist-image"
                   name="artistImage"
-                  className="file"
+                  className="admin-file"
                   type="file"
                   onChange={(e) => setFile(e.target.files?.[0] ?? null)}
                 />
               </div>
 
-              <div className="form-actions">
-                <button className="btn btn-primary" onClick={submit}>
+              <div className="admin-actions">
+                <button className="admin-btn admin-btn-primary" onClick={submit}>
                   {editId ? "Actualizar" : "Crear"}
                 </button>
 
                 {editId && (
-                  <button className="btn btn-secondary" onClick={resetForm}>
+                  <button
+                    className="admin-btn admin-btn-secondary"
+                    onClick={resetForm}
+                  >
                     Cancelar
                   </button>
                 )}
@@ -164,39 +159,37 @@ export default function ArtistsCrud() {
             </div>
           </div>
 
-          {/* LIST */}
-          <div className="card">
-            <div className="card-title">Listado</div>
+          <div className="admin-card">
+            <div className="admin-card-title">Listado</div>
 
-            <div className="list">
+            <div className="admin-list">
               {artists.map((a) => {
                 const imgUrl = a.image ? resolveMediaUrl(a.image) : "";
 
                 return (
-                  <div key={a.id} className="item">
+                  <div key={a.id} className="admin-item">
                     {imgUrl ? (
-                      <img className="thumb" src={imgUrl} alt={a.name} />
+                      <img className="admin-thumb" src={imgUrl} alt={a.name} />
                     ) : (
-                      <div className="thumb-fallback">👤</div>
+                      <div className="admin-thumb-fallback">👤</div>
                     )}
 
-                    <div className="item-info">
-                      <div className="item-name">{a.name}</div>
-                      <div className="item-meta">
-                        ID: {a.id} · Género:{" "}
-                        {genreNameById.get(a.genre) ?? a.genre}
+                    <div className="admin-item-info">
+                      <div className="admin-item-name">{a.name}</div>
+                      <div className="admin-item-meta">
+                        ID: {a.id} · Género: {genreNameById.get(a.genre) ?? a.genre}
                       </div>
                     </div>
 
-                    <div className="actions">
+                    <div className="admin-item-actions">
                       <button
-                        className="btn btn-secondary"
+                        className="admin-btn admin-btn-secondary"
                         onClick={() => onEdit(a)}
                       >
                         Editar
                       </button>
                       <button
-                        className="btn btn-danger"
+                        className="admin-btn admin-btn-danger"
                         onClick={() => onDelete(a.id)}
                       >
                         Eliminar

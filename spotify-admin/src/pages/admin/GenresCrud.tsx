@@ -1,14 +1,8 @@
 import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../../api/axios";
-import {
-  createGenre,
-  deleteGenre,
-  getGenres,
-  updateGenre,
-  type Genre,
-} from "../../services/genreService";
+import {createGenre, deleteGenre, getGenres, updateGenre, type Genre} from "../../services/genreService";
 import AdminHeader from "../../components/AdminHeader";
-import "../../styles/GenresCrud.css";
+import "../../styles/AdminPages.css";
 
 export default function GenresCrud() {
   const [items, setItems] = useState<Genre[]>([]);
@@ -71,53 +65,56 @@ export default function GenresCrud() {
     <>
       <AdminHeader />
 
-      <div className="genres-page">
-        <div className="genres-container">
-          <div className="genres-top">
-            <h2 className="genres-title">Géneros</h2>
-            <span className="genres-badge">{items.length} items</span>
+      <div className="admin-page">
+        <div className="admin-container">
+          <div className="admin-top">
+            <h2 className="admin-title">Géneros</h2>
+            <span className="admin-badge">{items.length} items</span>
           </div>
 
-          <div className="card">
-            <div className="card-title">
+          <div className="admin-card">
+            <div className="admin-card-title">
               {editId ? "Editar género" : "Crear género"}
             </div>
 
-            <div className="form-row">
-              <div className="field">
-                <label className="label" htmlFor="genre-name">
+            <div className="admin-form-row">
+              <div className="admin-field">
+                <label className="admin-label" htmlFor="genre-name">
                   Nombre
                 </label>
                 <input
                   id="genre-name"
                   name="genreName"
-                  className="input"
+                  className="admin-input"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Ej: Rock, Pop, Reggaeton..."
                 />
               </div>
 
-              <div className="field">
-                <label className="label" htmlFor="genre-image">
+              <div className="admin-field">
+                <label className="admin-label" htmlFor="genre-image">
                   Imagen
                 </label>
                 <input
                   id="genre-image"
                   name="genreImage"
-                  className="file"
+                  className="admin-file"
                   type="file"
                   onChange={(e) => setFile(e.target.files?.[0] ?? null)}
                 />
               </div>
 
-              <div className="form-actions">
-                <button className="btn btn-primary" onClick={submit}>
+              <div className="admin-actions">
+                <button className="admin-btn admin-btn-primary" onClick={submit}>
                   {editId ? "Actualizar" : "Crear"}
                 </button>
 
                 {editId && (
-                  <button className="btn btn-secondary" onClick={cancelEdit}>
+                  <button
+                    className="admin-btn admin-btn-secondary"
+                    onClick={cancelEdit}
+                  >
                     Cancelar
                   </button>
                 )}
@@ -125,35 +122,35 @@ export default function GenresCrud() {
             </div>
           </div>
 
-          <div className="card">
-            <div className="card-title">Listado</div>
+          <div className="admin-card">
+            <div className="admin-card-title">Listado</div>
 
-            <div className="list">
+            <div className="admin-list">
               {items.map((g) => {
                 const imgUrl = g.image ? resolveMediaUrl(g.image) : null;
 
                 return (
-                  <div key={g.id} className="item">
+                  <div key={g.id} className="admin-item">
                     {imgUrl ? (
-                      <img className="thumb" src={imgUrl} alt={g.name} />
+                      <img className="admin-thumb" src={imgUrl} alt={g.name} />
                     ) : (
-                      <div className="thumb-fallback">🎵</div>
+                      <div className="admin-thumb-fallback">🎵</div>
                     )}
 
-                    <div className="item-info">
-                      <div className="item-name">{g.name}</div>
-                      <div className="item-meta">ID: {g.id}</div>
+                    <div className="admin-item-info">
+                      <div className="admin-item-name">{g.name}</div>
+                      <div className="admin-item-meta">ID: {g.id}</div>
                     </div>
 
-                    <div className="actions">
+                    <div className="admin-item-actions">
                       <button
-                        className="btn btn-secondary"
+                        className="admin-btn admin-btn-secondary"
                         onClick={() => onEdit(g)}
                       >
                         Editar
                       </button>
                       <button
-                        className="btn btn-danger"
+                        className="admin-btn admin-btn-danger"
                         onClick={() => onDelete(g.id)}
                       >
                         Eliminar

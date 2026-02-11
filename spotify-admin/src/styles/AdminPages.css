@@ -1,0 +1,235 @@
+/* ===============================
+   ADMIN PAGE
+================================ */
+
+.admin-page{
+  min-height: calc(100vh - 64px);
+  background:
+    radial-gradient(800px 500px at 20% 0%, rgba(34,197,94,0.10), transparent 60%),
+    #0b0b0b;
+  padding: 22px 14px;
+  color: #fff;
+}
+
+.admin-container{
+  max-width: 980px;
+  margin: 0 auto;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.admin-top{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.admin-title{
+  margin:0;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+}
+
+.admin-badge{
+  color: rgba(255,255,255,0.75);
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* ===============================
+   CARD
+================================ */
+
+.admin-card{
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  border-radius: 14px;
+  padding: 12px;
+  transition: 0.2s;
+  margin-bottom: 12px;
+}
+
+.admin-card:hover{
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-1px);
+}
+
+.admin-card-title{
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+/* ===============================
+   FORM
+================================ */
+
+.admin-form-row{
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.admin-form-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+@media (max-width: 900px){
+  .admin-form-row,
+  .admin-form-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+.admin-field{
+  display:flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-label{
+  color: rgba(255,255,255,0.75);
+  font-size: 12px;
+}
+
+.admin-input,
+.admin-file,
+.admin-select{
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 10px;
+  padding: 10px;
+  color: #fff;
+  outline: none;
+}
+
+.admin-input::placeholder{
+  color: rgba(255,255,255,0.45);
+}
+
+.admin-actions{
+  display:flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+@media (max-width: 900px){
+  .admin-actions{
+    justify-content: flex-start;
+  }
+}
+
+/* ===============================
+   BUTTONS (SOLIDOS)
+================================ */
+
+.admin-btn{
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 800;
+  transition: 0.15s;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.admin-btn:focus-visible{
+  outline: 2px solid rgba(255,255,255,0.25);
+  outline-offset: 2px;
+}
+
+.admin-btn-primary{
+  background: #1DB954;
+}
+.admin-btn-primary:hover{
+  background: #18a94c;
+}
+
+.admin-btn-secondary{
+  background: #2a2a2a;
+}
+.admin-btn-secondary:hover{
+  background: #343434;
+}
+
+.admin-btn-danger{
+  background: #dc2626;
+}
+.admin-btn-danger:hover{
+  background: #b91c1c;
+}
+
+/* ===============================
+   LIST
+================================ */
+
+.admin-list{
+  display: grid;
+  gap: 10px;
+}
+
+.admin-item{
+  display:flex;
+  align-items:center;
+  gap: 12px;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  border-radius: 14px;
+}
+
+.admin-thumb{
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.admin-thumb-fallback{
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.admin-item-info{
+  min-width: 0;
+  flex: 1;
+}
+
+.admin-item-name{
+  font-weight: 900;
+}
+
+.admin-item-meta{
+  margin-top: 4px;
+  color: rgba(255,255,255,0.6);
+  font-size: 12px;
+}
+
+.admin-item-actions{
+  display:flex;
+  gap: 10px;
+}
+
+.admin-audio{
+  width: 100%;
+  margin-top: 8px;
+}
