@@ -63,7 +63,7 @@ Activar:
 
 ---
 
-## 2️2. Instalar dependencias usadas
+## 2️. Instalar dependencias usadas
 
 ```bash
 pip install django
@@ -176,8 +176,21 @@ http://localhost:5174
 
 ---
 
+# Crear superusuario Admin
+
+Para poder acceder al panel de Admin de Django, crea un superusuario desde la terminal:
+
+```bash
+python manage.py createsuperuser
+```
+
+Luego sigue las indicaciones para asignar usuario, correo y contraseña.
+
+---
+
 # Notas importantes
 
 * Backend debe estar activo antes de iniciar frontends.
 * Media files (imágenes y música) se guardan en `/media`.
 * CORS habilitado para desarrollo
+
