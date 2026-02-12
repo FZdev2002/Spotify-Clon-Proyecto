@@ -23,7 +23,8 @@ Incluye buscador global.
 * Django REST Framework
 * SimpleJWT
 * SQLite
-* CORS Headers
+* Django CORS Headers
+* Pillow (imágenes)
 
 ## Frontend Admin
 
@@ -32,6 +33,7 @@ Incluye buscador global.
 * TypeScript
 * React Router
 * Axios
+* CSS puro
 
 ## Frontend Usuarios
 
@@ -39,21 +41,7 @@ Incluye buscador global.
 * Vite
 * React Router
 * Axios
-
----
-
-# Estructura general
-
-```
-SpotifyClone-Backend
-   config/
-   music/
-   media/
-   db.sqlite3
-
-spotify-admin (frontend admin)
-spotifyusers-frontend (frontend usuarios)
-```
+* CSS puro
 
 ---
 
